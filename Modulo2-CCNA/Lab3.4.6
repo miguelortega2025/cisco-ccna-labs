@@ -1,1 +1,23 @@
-Estoy es una prueba
+# Laboratorio 3.4.6 - Configuración de VLANs y Trunking (Physical Mode)
+
+## Observación clave sobre la conectividad
+
+Durante el desarrollo del laboratorio, noté un detalle importante que me generó dudas inicialmente:
+
+- Las **PCs (PC-A y PC-B)** tienen direcciones IP en la subred **192.168.10.0/24**.
+- Los **switches (S1 y S2)** tienen sus IPs de gestión en la subred **192.168.1.0/24**.
+
+Esto significa que las PCs y los switches están en **redes diferentes**, por lo que **sin un router o un switch Layer 3, no pueden comunicarse entre sí a nivel IP**.
+
+## ¿Por qué el laboratorio funciona sin router?
+
+El objetivo del laboratorio no es que las PCs se comuniquen con los switches, sino:
+
+1. **Demostrar el aislamiento de VLANs:** Las PCs están en VLAN 10 (Operations), mientras que la gestión de los switches está en VLAN 99 (Management).
+2. **Demostrar que un trunk 802.1Q permite que una misma VLAN cruce entre switches:** PC-A (VLAN 10) puede hacer ping a PC-B (VLAN 10) a través del trunk, aunque estén en switches distintos.
+3. **Demostrar que la VLAN nativa (VLAN 1000) puede cambiarse para mejorar la seguridad.**
+
+## Conclusión
+
+- **No se necesita router** para este laboratorio porque no se requiere comunicación entre distintas VLANs (inter-VLAN routing).
+- Si en el futuro se quisiera que las PCs accedan a la IP de gestión de los switches, **sí sería necesario configurar un router** o un switch Layer 3 con enrutamiento entre VLANs.
