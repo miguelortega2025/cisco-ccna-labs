@@ -20,4 +20,4 @@ El objetivo del laboratorio no es que las PCs se comuniquen con los switches, si
 ## Conclusión
 
 - **No se necesita router** para este laboratorio porque no se requiere comunicación entre distintas VLANs (inter-VLAN routing).
-Si en el futuro se quisiera que las PCs accedan a la IP de gestión de los switches, **sí sería necesario configurar un router** o un switch Layer 3 con enrutamiento entre VLANs.
+-Si en el futuro se quisiera que las PCs accedan a la IP de gestión de los switches, **sí sería necesario configurar un router** o un switch Layer 3 con enrutamiento entre VLANs.
