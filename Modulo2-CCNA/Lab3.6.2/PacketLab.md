@@ -48,9 +48,9 @@
 - El trunk quedó activo y pasando tráfico etiquetado (`show interfaces trunk`).
 
 ### Lo que NO funcionó (y por qué está bien)
-- **PC-A → S1 (192.168.10.11):** ❌ Falló.
+- **PC-A → S1 (192.168.10.11):**  Falló.
   - *¿Por qué?* PC-A está en VLAN 20 (subred 20) y S1 tiene su IP de administración en VLAN 10 (subred 10). Son mundos diferentes.
-- **PC-B → S2 (192.168.10.12):** ❌ Falló.
+- **PC-B → S2 (192.168.10.12):**  Falló.
   - *¿Por qué?* PC-B está en VLAN 30 y S2 en VLAN 10. Mismo caso.
 
 ###  La gran lección
