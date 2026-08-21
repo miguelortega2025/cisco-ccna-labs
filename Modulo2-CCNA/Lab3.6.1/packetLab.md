@@ -37,7 +37,7 @@ Este laboratorio se centra en la configuración de VLANs, asignación de puertos
 
 ---
 
-## 🛠️ Comandos Clave Utilizados
+## Comandos Clave Utilizados
 
 ### Configuración de VLANs
 ```bash
