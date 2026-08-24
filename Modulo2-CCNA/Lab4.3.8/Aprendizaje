@@ -1,0 +1,17 @@
+# 📘 Bitácora de Aprendizaje: Layer 3 Switching e Inter-VLAN Routing
+
+## 🎯 Objetivo
+Configurar un switch multicapa (Cisco Catalyst 3650) para enrutar entre VLANs usando IPv4 e IPv6.
+
+---
+
+## 📌 Aprendizajes Clave
+
+### 1. Puerto Enrutado (Routed Port)
+- Convertir un puerto físico de switch a capa 3 con `no switchport`.
+- Asignar IP directamente en la interfaz física.
+
+```bash
+interface g0/2
+no switchport
+ip address 209.165.200.225 255.255.255.252
