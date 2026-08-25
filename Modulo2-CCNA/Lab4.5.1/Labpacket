@@ -1,0 +1,67 @@
+#  Laboratorio: Inter-VLAN Routing Challenge
+
+##  Descripción del Laboratorio
+En este laboratorio de Packet Tracer, implementé **enrutamiento entre VLANs** utilizando un router con subinterfaces (Router-on-a-Stick) y un switch que soporta VLANs, troncales y VLAN nativa.
+
+---
+
+##  Objetivos de Aprendizaje
+
+- Configurar direcciones IP en un router y un switch.
+- Crear, nombrar y asignar VLANs en un switch.
+- Configurar puertos de acceso y troncales (trunking).
+- Implementar enrutamiento inter-VLAN usando subinterfaces.
+- Verificar conectividad de extremo a extremo.
+
+---
+
+##  Equipos Utilizados
+
+| Dispositivo | Rol | Interfaces Relevantes |
+|-------------|-----|------------------------|
+| R1 | Router | G0/0, G0/1 (subinterfaces) |
+| S1 | Switch | G0/1 (trunk), F0/6-24 (acceso) |
+| PC1, PC2, PC3 | Hosts | NIC |
+| Server | Servidor | NIC |
+
+---
+
+##  Tabla de Direccionamiento
+
+| Dispositivo | Interfaz | Dirección IP | Máscara de Subred | Gateway |
+|-------------|----------|--------------|--------------------|---------|
+| R1 | G0/0 | 172.17.25.2 | 255.255.255.252 | N/A |
+| R1 | G0/1.10 | 172.17.10.1 | 255.255.255.0 | N/A |
+| R1 | G0/1.20 | 172.17.20.1 | 255.255.255.0 | N/A |
+| R1 | G0/1.30 | 172.17.30.1 | 255.255.255.0 | N/A |
+| R1 | G0/1.88 | 172.17.88.1 | 255.255.255.0 | N/A |
+| R1 | G0/1.99 | 172.17.99.1 | 255.255.255.0 | N/A |
+| S1 | VLAN 99 | 172.17.99.10 | 255.255.255.0 | 172.17.99.1 |
+| PC1 | NIC | 172.17.10.21 | 255.255.255.0 | 172.17.10.1 |
+| PC2 | NIC | 172.17.20.22 | 255.255.255.0 | 172.17.20.1 |
+| PC3 | NIC | 172.17.30.23 | 255.255.255.0 | 172.17.30.1 |
+| Server | NIC | 172.17.50.254 | 255.255.255.0 | 172.17.50.1 |
+
+---
+
+##  VLANs y Asignación de Puertos
+
+| VLAN | Nombre | Puertos Asignados |
+|------|--------|-------------------|
+| 10 | Faculty/Staff | F0/11-17 |
+| 20 | Students | F0/18-24 |
+| 30 | Guest | F0/6-10 |
+| 88 | Native | G0/1 (nativa) |
+| 99 | Management | VLAN 99 (SVI) |
+
+---
+
+##  Configuración Implementada
+
+###  Configuración del Router R1
+
+#### Interfaces Físicas
+```bash
+interface GigabitEthernet0/0
+ ip address 172.17.25.2 255.255.255.252
+ no shutdown
