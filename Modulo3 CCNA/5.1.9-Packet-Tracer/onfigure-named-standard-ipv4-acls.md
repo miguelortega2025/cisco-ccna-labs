@@ -42,7 +42,10 @@ Este es el equilibrio fundamental entre **seguridad** y **productividad** que to
 
 ### Configuración de la ACL
 
-cisco
+
+### Configuración de la ACL
+
+```cisco
 R1> enable
 R1# configure terminal
 
@@ -65,10 +68,10 @@ R1(config-if)# ip access-group File_Server_Restrictions out
 R1(config-if)# end
 
 ! Guardar configuración
-R1# copy running-config startup-config 
+R1# copy running-config startup-config
+```
 
-cisco
-### Configuración de la ACL
+```cisco 
 
 R1# show access-lists
 
