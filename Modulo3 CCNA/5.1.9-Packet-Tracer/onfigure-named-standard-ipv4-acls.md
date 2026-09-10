@@ -65,5 +65,14 @@ R1(config-if)# ip access-group File_Server_Restrictions out
 R1(config-if)# end
 
 ! Guardar configuración
-R1# copy running-config startup-config
+R1# copy running-config startup-config 
+
+### Configuración de la ACL
+
+R1# show access-lists
+
+Standard IP access list File_Server_Restrictions
+    10 permit host 192.168.20.4 (4 match(es))
+    20 permit host 192.168.100.100 (4 match(es))
+    30 deny any (8 match(es))
 
