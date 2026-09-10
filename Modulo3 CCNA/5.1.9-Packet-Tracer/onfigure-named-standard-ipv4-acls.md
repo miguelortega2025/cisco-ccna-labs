@@ -37,3 +37,33 @@ Este es el equilibrio fundamental entre **seguridad** y **productividad** que to
 ## 🛠️ Solución Técnica
 
 ### Topología
+<img width="726" height="437" alt="image" src="https://github.com/user-attachments/assets/1eace251-2055-4d82-9ee2-8c24a63572aa" />
+
+
+### Configuración de la ACL
+
+```cisco
+R1> enable
+R1# configure terminal
+
+! Crear la ACL estándar con nombre
+R1(config)# ip access-list standard File_Server_Restrictions
+
+! Reglas en orden específico (importante)
+R1(config-std-nacl)# permit host 192.168.20.4
+R1(config-std-nacl)# permit host 192.168.100.100
+R1(config-std-nacl)# deny any
+
+! Verificar antes de aplicar
+R1(config-std-nacl)# end
+R1# show access-lists
+
+! Aplicar a la interfaz que conecta al Servidor de Archivos
+R1# configure terminal
+R1(config)# interface fastethernet 0/1
+R1(config-if)# ip access-group File_Server_Restrictions out
+R1(config-if)# end
+
+! Guardar configuración
+R1# copy running-config startup-config
+
