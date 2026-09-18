@@ -77,11 +77,5 @@ R3(config)# interface g0/0/0
 R3(config-if)# ip access-group 1 out
 
 ```
-Impacto Empresarial
-Antes	Después
-❌ Acceso sin restricciones entre sucursales	✅ Acceso controlado por políticas de seguridad
-❌ Riesgo de fuga de información	✅ Solo hosts autorizados acceden a recursos críticos
-❌ Sin trazabilidad de accesos	✅ Contadores de coincidencia permiten auditoría
-❌ Cumplimiento normativo nulo	✅ Alineado con ISO 27001, PCI-DSS, GDPR
-❌ Tráfico innecesario satura enlaces	✅ Filtrado reduce tráfico no autorizado
+
 
