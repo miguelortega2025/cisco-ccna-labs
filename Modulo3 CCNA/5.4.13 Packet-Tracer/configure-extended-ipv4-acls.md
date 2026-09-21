@@ -145,9 +145,6 @@ La configuración de ACLs no es un fin en sí mismo, sino un **control técnico 
 
 ---
 
-**Elaborado por:** [Tu nombre]  
-**Revisado por:** [Nombre del instructor/supervisor]  
-**Fecha de entrega:** [Fecha]  
 
 ---
 
