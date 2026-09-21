@@ -471,5 +471,4 @@ Wildcard = 255.255.255.255 − Máscara de subred
 
 > Este laboratorio no se trata de memorizar comandos. Se trata de **traducir reglas de negocio a configuración de red** que se cumpla automáticamente, proteja los activos de la empresa y permita demostrar cumplimiento ante auditorías.
 
-**La pregunta que todo administrador de red debe hacerse:**
-> "¿Qué regla de negocio estoy implementando con esta ACL, y qué pasaría si no estuviera?"
+
