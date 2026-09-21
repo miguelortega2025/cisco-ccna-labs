@@ -148,4 +148,3 @@ La configuración de ACLs no es un fin en sí mismo, sino un **control técnico 
 
 ---
 
-¿Quieres que ajuste el formato para que sea más formal (tipo informe corporativo), más breve (tipo bitácora resumida), o que agregue una portada y tabla de contenido?
