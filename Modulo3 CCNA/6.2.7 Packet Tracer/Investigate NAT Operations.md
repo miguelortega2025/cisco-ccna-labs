@@ -1,4 +1,4 @@
-# 📋 Bitácora de Laboratorio: Investigación de Operaciones NAT
+#  Bitácora de Laboratorio: Investigación de Operaciones NAT
 
 **Módulo:** 6.2.7 – Packet Tracer: Investigate NAT Operations
 **Área:** Infraestructura de Redes
@@ -8,13 +8,13 @@
 
 ---
 
-## 1. 🎯 Propósito del laboratorio
+## 1.  Propósito del laboratorio
 
 Evaluar cómo la implementación de **NAT (Network Address Translation)** permite a una organización **conectar sus redes internas con Internet** sin necesidad de asignar una dirección IP pública a cada dispositivo, resolviendo así problemas de **escasez de direcciones, costos operativos y exposición de la red interna**.
 
 ---
 
-## 2. 🏢 Contexto de negocio
+## 2.  Contexto de negocio
 
 La empresa cuenta con dos sedes:
 
@@ -32,7 +32,7 @@ Ambas sedes necesitan:
 
 ---
 
-## 3. 🧩 Problema de negocio que NAT resuelve
+## 3.  Problema de negocio que NAT resuelve
 
 | Problema | Impacto en el negocio | ¿Cómo lo resuelve NAT? |
 |----------|----------------------|------------------------|
@@ -44,7 +44,7 @@ Ambas sedes necesitan:
 
 ---
 
-## 4. 🔍 Desarrollo de la investigación
+## 4.  Desarrollo de la investigación
 
 ### Parte 1: Operación NAT en la intranet
 
@@ -94,7 +94,7 @@ Ambas sedes necesitan:
 
 ---
 
-## 5. 📊 Resultados de negocio
+## 5.  Resultados de negocio
 
 | Indicador | Antes de NAT | Después de NAT |
 |-----------|-------------|----------------|
@@ -107,7 +107,7 @@ Ambas sedes necesitan:
 
 ---
 
-## 6. ✅ Conclusiones
+## 6.  Conclusiones
 
 1. **NAT no es solo una solución técnica, es una estrategia de negocio.** Permite operar con costos predecibles y escalables.
 2. **La empresa puede conectar miles de dispositivos a Internet con una sola IP pública**, reduciendo costos de ISP y simplificando la administración.
@@ -117,7 +117,7 @@ Ambas sedes necesitan:
 
 ---
 
-## 7. 📌 Recomendaciones
+## 7.  Recomendaciones
 
 - **Documentar las traducciones NAT** en caso de auditorías o incidentes.
 - **Monitorear el tamaño de las tablas NAT** para evitar agotamiento en horas pico.
@@ -127,7 +127,7 @@ Ambas sedes necesitan:
 
 ---
 
-## 8. 📎 Anexos
+## 8.  Anexos
 
 - Tabla de direccionamiento.
 - Capturas de `show ip nat translations` en R2 y WRS.
