@@ -3,8 +3,7 @@
 **Módulo:** 6.2.7 – Packet Tracer: Investigate NAT Operations
 **Área:** Infraestructura de Redes
 **Enfoque:** Impacto de negocio y continuidad operativa
-**Responsable:** [Tu nombre]
-**Fecha:** [Fecha]
+
 
 ---
 
