@@ -1,6 +1,6 @@
-# 🧪 Lab: NAT Dinámico en Cisco Packet Tracer
+#  Lab: NAT Dinámico en Cisco Packet Tracer
 
-## 📌 ¿Qué hice en este lab?
+##  ¿Qué hice en este lab?
 
 Configuré **NAT dinámico** en el router R2 para que los dispositivos de la red interna (L1, PC1 y PC2) pudieran salir a Internet usando un pool pequeño de direcciones públicas.
 
@@ -15,7 +15,7 @@ La idea era que los dispositivos internos salieran a Internet con una IP públic
 
 ---
 
-## 🛠️ ¿Qué configuré?
+##  ¿Qué configuré?
 
 ### 1. ACL para seleccionar el tráfico a traducir
 
@@ -61,7 +61,7 @@ Aquí marqué la interfaz que va hacia R1 como `inside` (lado privado) y la que 
 
 ---
 
-## 🧠 Lo que aprendí
+##  Lo que aprendí
 
 ### La diferencia entre ACL y NAT
 
@@ -89,7 +89,7 @@ Esto me hizo pensar en el mundo real: si una empresa tiene 100 empleados y solo 
 
 ---
 
-## 🔍 Verificación
+##  Verificación
 
 ### Ver traducciones activas
 
@@ -109,7 +109,7 @@ Abrí el navegador en PC1 y PC2 al mismo tiempo. Luego intenté desde L1 y no ca
 
 ---
 
-## 💼 ¿Qué problema de negocio resuelve esto?
+##  ¿Qué problema de negocio resuelve esto?
 
 NAT dinámico le permite a una empresa:
 
@@ -129,7 +129,7 @@ Por eso, en empresas grandes, **PAT es la evolución natural** de NAT dinámico.
 
 ---
 
-## ✅ Conclusión
+##  Conclusión
 
 Este lab me ayudó a entender que NAT dinámico no es solo un tema técnico, sino una **decisión de negocio**: cómo conectar muchos dispositivos a Internet con pocos recursos públicos. Aprendí a configurarlo, a verificar que funcione y a reconocer sus límites.
 
