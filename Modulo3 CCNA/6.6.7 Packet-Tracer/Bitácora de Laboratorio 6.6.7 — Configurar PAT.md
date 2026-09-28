@@ -1,10 +1,10 @@
-# 📘 Bitácora de Laboratorio 6.6.7 — Configurar PAT
+#  Bitácora de Laboratorio 6.6.7 — Configurar PAT
 
 ## Enfoque de Negocio
 
 ---
 
-## 🏢 1. Contexto del negocio
+##  1. Contexto del negocio
 
 **Empresa**: "TecnoRed S.A."
 **Sector**: Servicios informáticos y conectividad
@@ -18,38 +18,38 @@
 
 ---
 
-## ❗ 2. Problema de negocio
+##  2. Problema de negocio
 
 La empresa enfrenta **tres problemas críticos**:
 
-### 🔴 Problema 1: Escasez de direcciones IPv4 públicas
+###  Problema 1: Escasez de direcciones IPv4 públicas
 
 - Hay **más dispositivos internos que direcciones públicas disponibles**.
 - No se puede asignar una IP pública a cada PC, laptop o servidor.
 
-### 🔴 Problema 2: Costos de contratar más IPs públicas
+###  Problema 2: Costos de contratar más IPs públicas
 
 - El ISP cobra **por cada IP pública adicional**.
 - La empresa quiere **minimizar costos** sin sacrificar conectividad.
 
-### 🔴 Problema 3: Necesidad de acceso simultáneo a Internet
+###  Problema 3: Necesidad de acceso simultáneo a Internet
 
 - Todos los empleados deben poder navegar, acceder al servidor web y usar aplicaciones en la nube **al mismo tiempo**.
 - Sin una solución adecuada, solo unos pocos podrían conectarse.
 
 ---
 
-## 💡 3. Solución implementada: PAT (NAT con sobrecarga)
+##  3. Solución implementada: PAT (NAT con sobrecarga)
 
 La empresa implementa **PAT** en sus dos routers para **permitir que múltiples dispositivos internos compartan una o pocas IPs públicas**, usando **puertos lógicos** para diferenciar cada conexión.
 
-### ✅ Sucursal 1 (R1) — NAT dinámico con pool + PAT
+###  Sucursal 1 (R1) — NAT dinámico con pool + PAT
 
 - Se configura un **pool con 2 IPs públicas** (`209.165.200.233` y `.234`).
 - Se usa **PAT con overload** para que todos los dispositivos compartan esas IPs.
 - **Beneficio**: mayor capacidad si se agotan los puertos de la primera IP.
 
-### ✅ Sucursal 2 (R2) — PAT mediante interfaz
+###  Sucursal 2 (R2) — PAT mediante interfaz
 
 - Se usa **directamente la IP pública de la interfaz WAN** (`s0/1/1`).
 - No se necesita pool.
@@ -57,7 +57,7 @@ La empresa implementa **PAT** en sus dos routers para **permitir que múltiples 
 
 ---
 
-## 📈 4. Beneficios de negocio
+##  4. Beneficios de negocio
 
 | Beneficio | Impacto en el negocio |
 |-----------|------------------------|
@@ -70,19 +70,19 @@ La empresa implementa **PAT** en sus dos routers para **permitir que múltiples 
 
 ---
 
-## 🧪 5. Verificación y resultados
+##  5. Verificación y resultados
 
-### 🔍 En R1 (Sucursal 1)
+###  En R1 (Sucursal 1)
 
 ```bash
 R1# show ip nat translations
 ```
 
-- ✅ Los 4 dispositivos acceden a Server1.
-- ✅ Se usa una sola IP del pool.
-- ✅ PAT reutiliza puertos para diferenciar conexiones.
+-  Los 4 dispositivos acceden a Server1.
+-  Se usa una sola IP del pool.
+-  PAT reutiliza puertos para diferenciar conexiones.
 
-### 🔍 En R2 (Sucursal 2)
+###  En R2 (Sucursal 2)
 
 ```bash
 R2# show ip nat translations
@@ -95,7 +95,7 @@ R2# show ip nat statistics
 
 ---
 
-## 🧠 6. Lecciones aprendidas (enfoque de negocio)
+##  6. Lecciones aprendidas (enfoque de negocio)
 
 1. **PAT es una solución rentable** para empresas con pocas IPs públicas.
 2. **No todas las sucursales necesitan la misma configuración**: unas pueden usar pool, otras interfaz.
@@ -104,13 +104,13 @@ R2# show ip nat statistics
 
 ---
 
-## 🏁 7. Conclusión ejecutiva
+##  7. Conclusión ejecutiva
 
 > La implementación de **PAT (NAT con sobrecarga)** permitió a TecnoRed S.A. **conectar a todos sus empleados a Internet y al servidor corporativo** usando **muy pocas direcciones IP públicas**, reduciendo costos, mejorando la escalabilidad y garantizando la continuidad del negocio.
 
 ---
 
-## 📎 Anexo: Comandos clave usados
+##  Anexo: Comandos clave usados
 
 ### R1 (Pool NAT + PAT)
 
