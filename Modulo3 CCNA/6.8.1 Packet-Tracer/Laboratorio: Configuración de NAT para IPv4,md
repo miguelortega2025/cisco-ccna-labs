@@ -1,0 +1,215 @@
+# 📘 Bitácora de Aprendizaje — Laboratorio: Configuración de NAT para IPv4
+
+## Enfoque: Aplicación en Entornos de Negocio
+
+---
+
+## 📌 Datos generales
+
+| Campo | Detalle |
+|-------|---------|
+| **Laboratorio** | Packet Tracer — Configure NAT for IPv4 |
+| **Tema** | NAT dinámico con PAT y NAT estático |
+| **Router configurado** | R2 |
+| **Enfoque** | Aplicación empresarial y toma de decisiones de negocio |
+| **Fecha** | [Fecha de realización] |
+| **Autor** | [Tu nombre] |
+
+---
+
+## 🎯 Objetivo del laboratorio (perspectiva de negocio)
+
+Comprender cómo las empresas pueden **optimizar el uso de direcciones IP públicas**, **publicar servicios internos de forma controlada** y **mantener la seguridad de su red** mediante la configuración de NAT en un router perimetral.
+
+---
+
+## 🏢 Contexto de negocio simulado
+
+Imagina que eres el **administrador de red de una empresa** que tiene:
+
+- **3 departamentos internos** (LAN1: Ventas, LAN2: Servidores, LAN3: Administración) con direccionamiento privado.
+- **Un enlace a Internet** con un **rango muy limitado de IPs públicas** (solo 2 direcciones utilizables).
+- **Un servidor interno crítico** (`local.pka`) que debe ser accesible desde Internet para clientes o proveedores.
+- **Necesidad de que todos los empleados naveguen** sin asignar una IP pública a cada uno.
+
+**Desafío:** ¿Cómo permitir que cientos de dispositivos salgan a Internet y, a la vez, publicar un servidor, usando solo 2 IPs públicas?
+
+**Solución:** NAT dinámico con PAT + NAT estático.
+
+---
+
+## 🧩 Paso a paso con enfoque de negocio
+
+### 1. Definir interfaces internas y externas
+
+| Configuración | Propósito de negocio |
+|---------------|---------------------|
+| `ip nat inside` en F0/0, S0/0/0, S0/0/1 | Marcar las redes departamentales como "privadas": el tráfico que salga de aquí será traducido |
+| `ip nat outside` en S0/1/0 | Marcar el enlace al ISP como "público": aquí llegan las IPs reales |
+
+> 💼 **Decisión de negocio:** Separar claramente qué es interno y qué es externo permite **controlar el flujo de información** y **aplicar políticas de seguridad**.
+
+---
+
+### 2. Crear pool NAT con una sola IP pública
+
+```bash
+ip nat pool R2POOL 209.165.202.129 209.165.202.129 netmask 255.255.255.252
+```
+
+| Aspecto | Impacto en el negocio |
+|---------|----------------------|
+| Solo 1 IP en el pool | **Ahorro de costos**: no se compran más IPs públicas de las necesarias |
+| Uso de PAT (overload) | **Escalabilidad**: cientos de empleados comparten una sola IP |
+| Máscara /30 | **Eficiencia**: se aprovecha al máximo el rango asignado por el ISP |
+
+> 💼 **Decisión de negocio:** Usar PAT es una práctica estándar en empresas porque **reduce costos de IPs públicas** y **simplifica la administración**.
+
+---
+
+### 3. Crear ACL para definir qué redes se traducen
+
+```bash
+ip access-list standard R2NAT
+ permit 192.168.10.0 0.0.0.255
+ permit 192.168.20.0 0.0.0.255
+ permit 192.168.30.0 0.0.0.255
+```
+
+| Aspecto | Impacto en el negocio |
+|---------|----------------------|
+| ACL nombrada `R2NAT` | **Claridad y mantenimiento**: nombres descriptivos facilitan auditorías |
+| Orden: LAN1, LAN2, LAN3 | **Documentación**: refleja la estructura organizacional |
+| Solo redes internas | **Seguridad**: evita traducir tráfico no autorizado |
+
+> 💼 **Decisión de negocio:** Una ACL bien documentada es **auditable** y permite **cumplir con políticas de TI** y normativas de seguridad.
+
+---
+
+### 4. Configurar NAT dinámico con PAT
+
+```bash
+ip nat inside source list R2NAT pool R2POOL overload
+```
+
+| Aspecto | Impacto en el negocio |
+|---------|----------------------|
+| `overload` = PAT | **Todos los empleados navegan** con una sola IP pública |
+| Traducción dinámica | **Transparente para el usuario**: no requiere configuración en PCs |
+| Sin `overload` | Solo 1 dispositivo podría salir a la vez: **inaceptable en empresa** |
+
+> 💼 **Decisión de negocio:** Sin PAT, la empresa necesitaría **una IP pública por empleado**, lo cual es **económicamente inviable** y **agotaría IPv4**.
+
+---
+
+### 5. Configurar NAT estático para el servidor
+
+```bash
+ip nat inside source static 192.168.20.254 209.165.202.130
+```
+
+| Aspecto | Impacto en el negocio |
+|---------|----------------------|
+| Mapeo fijo 1:1 | **Servidor accesible desde Internet** para clientes/proveedores |
+| IP pública dedicada | **Presencia online**: la empresa puede ofrecer servicios web, FTP, etc. |
+| Sin ACL ni pool | **Simplicidad**: regla directa y permanente |
+
+> 💼 **Decisión de negocio:** Publicar un servidor con NAT estático permite **generar ingresos** (ej. tienda online, API, portal de clientes) o **mejorar operaciones** (ej. acceso remoto a sistemas internos).
+
+---
+
+## 📊 Comparativa de negocio: NAT dinámico vs. NAT estático
+
+| Criterio | NAT dinámico con PAT | NAT estático |
+|----------|---------------------|--------------|
+| **Propósito** | Navegación de empleados | Publicación de servicios |
+| **IPs necesarias** | 1 para todos | 1 por servidor |
+| **Costo** | Bajo | Medio |
+| **Seguridad** | Alta (oculta red interna) | Media (expone servidor) |
+| **Escalabilidad** | Muy alta | Limitada por IPs |
+| **Mantenimiento** | Bajo | Medio |
+| **Impacto en negocio** | Operación diaria | Ingresos / servicios externos |
+
+---
+
+## 🔐 Consideraciones de seguridad para el negocio
+
+| Riesgo | Mitigación |
+|--------|-----------|
+| Servidor expuesto a Internet | Firewall, IDS/IPS, actualizaciones constantes |
+| Fuerza bruta en servicios publicados | Contraseñas fuertes, autenticación multifactor |
+| Escaneo de puertos | Solo abrir puertos necesarios |
+| Fuga de información interna | NAT oculta direcciones privadas |
+| Ataques DDoS | Contratar mitigación con el ISP |
+
+> 💼 **Decisión de negocio:** La seguridad no es opcional. Un servidor mal configurado puede **costar millones** en daños reputacionales y legales.
+
+---
+
+## 💰 Análisis costo-beneficio
+
+| Elemento | Sin NAT | Con NAT (este lab) |
+|----------|---------|-------------------|
+| IPs públicas necesarias | 1 por dispositivo | 2 en total |
+| Costo mensual por IPs | Alto | Bajo |
+| Complejidad de configuración | Baja | Media |
+| Seguridad | Baja | Alta |
+| Escalabilidad | Limitada | Alta |
+| Tiempo de implementación | Rápido | Moderado |
+
+> 💼 **Conclusión de negocio:** NAT es **rentable**, **seguro** y **escalable**. Es la razón por la que la gran mayoría de las empresas lo usa.
+
+---
+
+## 🧠 Lecciones aprendidas (enfoque de negocio)
+
+### 1. NAT no es solo tecnología, es estrategia
+Permite que una empresa con recursos limitados (pocas IPs públicas) opere como si tuviera muchas.
+
+### 2. PAT es el estándar de facto en empresas
+Sin PAT, IPv4 se habría agotado hace décadas. Es **esencial para la operación diaria**.
+
+### 3. NAT estático es para servicios, no para usuarios
+Los empleados navegan con NAT dinámico. Los servidores se publican con NAT estático. **No confundir**.
+
+### 4. La seguridad empieza en el perímetro
+NAT oculta la red interna, pero no es un firewall. **Se complementa con otras capas**.
+
+### 5. La documentación es clave
+ACLs nombradas, pools descriptivos y configuraciones claras permiten **auditorías y continuidad operativa**.
+
+### 6. El negocio depende de la red
+Si NAT falla, la empresa se queda sin Internet. **La redundancia y el monitoreo son críticos**.
+
+---
+
+## 🔄 Aplicación en el mundo real
+
+| Escenario | Solución NAT |
+|-----------|-------------|
+| PyME con 50 empleados y 1 IP pública | NAT dinámico con PAT |
+| Empresa con servidor web propio | NAT estático para el servidor |
+| Sucursal con VPN a casa matriz | NAT dinámico + túnel |
+| Proveedor de servicios cloud | NAT gateway |
+| Red doméstica | NAT dinámico con PAT (router ISP) |
+
+---
+
+## 📝 Reflexión final
+
+> Este laboratorio me enseñó que **NAT no es solo un tema técnico**, sino una **herramienta estratégica de negocio** que permite:
+> - **Ahorrar costos** en direcciones IP públicas.
+> - **Escalar** la red sin rediseñarla.
+> - **Publicar servicios** que generan ingresos.
+> - **Proteger** la infraestructura interna.
+>
+> Como futuro profesional de redes, entiendo que **cada configuración tiene un impacto directo en la operación y rentabilidad de la empresa**. No se trata solo de que "el ping funcione", sino de que **el negocio funcione**.
+
+---
+
+## 📎 Anexos
+
+- Configuración completa del router R2
+- Tabla de direccionamiento
+- Comandos de verificación (`show ip nat translations`, `show ip nat statistics`)
+- Diagrama de topología
