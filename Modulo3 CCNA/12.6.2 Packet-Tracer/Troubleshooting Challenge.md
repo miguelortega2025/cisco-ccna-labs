@@ -1,18 +1,18 @@
-# 🌐 Cisco Packet Tracer - Troubleshooting Challenge (12.6.2)
+#  Cisco Packet Tracer - Troubleshooting Challenge (12.6.2)
 
-## 📋 Descripción del Laboratorio
+##  Descripción del Laboratorio
 
 Este repositorio contiene la documentación y solución del laboratorio **"Troubleshooting Challenge - Use Documentation to Solve Issues"** de Cisco Networking Academy.
 
 El objetivo del laboratorio es diagnosticar y reparar problemas de conectividad en una red corporativa preconfigurada que ha sufrido fallas. Se debe garantizar que todos los hosts (PC1 a PC7) puedan comunicarse entre sí y con el Servidor de Internet (`203.0.113.27`).
 
-## 🛠️ Herramientas y Tecnologías Utilizadas
+##  Herramientas y Tecnologías Utilizadas
 
 - **Software:** Cisco Packet Tracer
 - **Protocolos:** ICMP, CDP, OSPF, NAT, ARP
 - **Conceptos:** Enrutamiento estático, Subinterfaces, VLSM (máscaras de longitud variable /25, /27, /30), Troubleshooting
 
-## 🔍 Diagnóstico y Problemas Encontrados
+##  Diagnóstico y Problemas Encontrados
 
 El laboratorio presenta múltiples fallas ocultas en diferentes dispositivos de la topología. Aquí está el desglose de los errores encontrados y cómo se solucionaron:
 
@@ -59,7 +59,7 @@ ip route 0.0.0.0 0.0.0.0 192.168.0.5
 - **Problema:** La PC5 no podía salir de su red local porque no tenía configurado un Default Gateway (`0.0.0.0`).
 - **Solución:** Utilizando la técnica de descubrimiento de vecinos con el comando `show cdp neighbors detail` desde un router, se descubrió que la subinterfaz del router HQ para la red de la PC5 era la `192.168.5.129`. Se procedió a configurar esta IP como Gateway en la PC5.
 
-## 📚 Comandos de Diagnóstico Utilizados
+##  Comandos de Diagnóstico Utilizados
 
 Durante la resolución del laboratorio, se utilizaron las siguientes herramientas de Cisco IOS para el troubleshooting:
 
@@ -68,7 +68,7 @@ Durante la resolución del laboratorio, se utilizaron las siguientes herramienta
 - **Ver estado de las interfaces:** `show ip interface brief` (permite detectar interfaces `administratively down`)
 - **Ver tabla de enrutamiento:** `show ip route` (permite verificar la presencia de rutas `C`, `S`, `O` y la ruta por defecto `S*`)
 
-## ✅ Resultado Final
+##  Resultado Final
 
 Tras aplicar las soluciones, se verificó que:
 
